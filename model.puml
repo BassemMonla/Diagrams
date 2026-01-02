@@ -1,0 +1,28 @@
+@startuml
+
+class User {
+    +str name
+    +str email
+    +str password_hash
+    +login()
+    +logout()
+}
+
+class Account {
+    +str account_number
+    +float balance
+    +deposit(amount: float)
+    +withdraw(amount: float)
+}
+
+class Transaction {
+    +str transaction_id
+    +float amount
+    +datetime timestamp
+    +process()
+}
+
+User "1" *-- "many" Account : owns
+Account "1" *-- "many" Transaction : has
+
+@enduml

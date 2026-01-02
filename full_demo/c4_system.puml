@@ -1,0 +1,19 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(customer, "Customer", "A user of the banking system")
+
+System_Boundary(c1, "Banking System") {
+    Container(web_app, "Web Application", "Python, Streamlit", "Allows users to view accounts and transactions")
+    Container(api, "API Layer", "Python, FastAPI", "Handles business logic and data processing")
+    ContainerDb(database, "Database", "PostgreSQL", "Stores user and transaction data")
+}
+
+System_Ext(email_system, "E-mail System", "Internal Microsoft Exchange", "Sends notifications")
+
+Rel(customer, web_app, "Uses", "HTTPS")
+Rel(web_app, api, "Uses", "JSON/HTTPS")
+Rel(api, database, "Reads/Writes", "JDBC")
+Rel(api, email_system, "Sends e-mails using", "SMTP")
+
+@enduml

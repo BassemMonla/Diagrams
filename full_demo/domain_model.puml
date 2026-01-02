@@ -1,0 +1,34 @@
+@startuml
+
+class Customer {
+    +str customer_id
+    +str full_name
+    +str email
+    +list[Account] accounts
+    +register()
+    +update_profile()
+}
+
+class Account {
+    +str account_number
+    +float balance
+    +str type
+    +deposit(amount: float)
+    +withdraw(amount: float)
+}
+
+class TransactionService {
+    +process_transfer(from_acc: Account, to_acc: Account, amount: float)
+    +get_history(account: Account)
+}
+
+class NotificationService {
+    +send_email(to: str, subject: str, body: str)
+    +send_sms(to: str, message: str)
+}
+
+Customer "1" *-- "many" Account : owns
+TransactionService ..> Account : manipulates
+TransactionService ..> NotificationService : uses
+
+@enduml
